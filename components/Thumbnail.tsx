@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import { forwardRef } from "react";
 
@@ -7,7 +7,6 @@ const Thumbnail = forwardRef(({ result }, ref) => {
     return (
         <div ref={ref} className="p-2 group cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50">
             <Image
-                layout="responsive"
                 height={1080}
                 width={1920}
                 src={
@@ -15,7 +14,11 @@ const Thumbnail = forwardRef(({ result }, ref) => {
                     `${BASE_URL}${result.poster_path}`
                 }
                 alt="images"
-            />
+                sizes="100vw"
+                style={{
+                    width: "100%",
+                    height: "auto"
+                }} />
             <div className="p-2">
                 <p className="truncate max-w-md">{result.overview}</p>
                 <h2 className="mt-1 text-2xl text-white transition-all duration-100 ease-in-out group-hover:font-bold">

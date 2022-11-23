@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Nav from "../components/Nav";
 import Results from "../components/Results";
 import requests from "../utils/requests";
-import Image from "next/legacy/image";
+import Image from "next/image";
 //import tmdb from "../public/tmdb.svg";
 
 export default function Home({ results }) {
@@ -24,7 +24,10 @@ export default function Home({ results }) {
           width={100}
           src={''}
           alt="tmdb"
-        />
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} />
       </div>
     </div>
   );
