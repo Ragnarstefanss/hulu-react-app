@@ -7,7 +7,7 @@ import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline"
 
-import Image from "next/image";
+import Image from "next/image"
 import HeaderItem from "./HeaderItem"
 
 function Header() {
@@ -21,18 +21,9 @@ function Header() {
                 <HeaderItem title='SEARCH' Icon={MagnifyingGlassIcon} />
                 <HeaderItem title='ACCOUNT' Icon={UserIcon} />
             </div>
-            <Image
-                alt="header image"
-                className="object-contain"
-                src="https://links.papareact.com/ua6"
-                width={200}
-                height={100}
-                style={{
-                    maxWidth: "100%",
-                    height: "auto"
-                }} />
+            <Image alt="hulu_logo" className="object-contain" src="https://links.papareact.com/ua6" width={200} height={100} />
         </header>
-    );
+    )
 }
 
 export default Header
