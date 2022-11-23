@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import Results from "../components/Results";
 import requests from "../utils/requests";
 import Image from "next/image";
-//import tmdb from "../public/tmdb.svg";
+import tmdb from "../public/tmdb.svg";
 
 export default function Home({ results }) {
   return (
@@ -22,12 +22,9 @@ export default function Home({ results }) {
           className="object-contain"
           height={100}
           width={100}
-          src={''}
+          src={tmdb}
           alt="tmdb"
-          style={{
-            maxWidth: "100%",
-            height: "auto"
-          }} />
+        />
       </div>
     </div>
   );
@@ -36,7 +33,8 @@ export default function Home({ results }) {
 export async function getServerSideProps(context) {
   const genre = context.query.genre;
   const request = await fetch(
-    `https://api.themoviedb.org/3${requests[genre]?.url || requests.fetchTrending.url
+    `https://api.themoviedb.org/3${
+      requests[genre]?.url || requests.fetchTrending.url
     }`
   ).then((res) => res.json());
 
