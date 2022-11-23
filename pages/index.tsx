@@ -6,6 +6,7 @@ import requests from "../utils/requests";
 import Image from "next/image";
 //import tmdb from "../public/tmdb.svg";
 
+
 export default function Home({ results }) {
   return (
     <div>
