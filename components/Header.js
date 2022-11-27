@@ -21,7 +21,7 @@ function Header() {
                 <HeaderItem title='SEARCH' Icon={MagnifyingGlassIcon} />
                 <HeaderItem title='ACCOUNT' Icon={UserIcon} />
             </div>
-            <Image className="object-contain" src="https://links.papareact.com/ua6" width={200} height={100} />
+            <Image alt="hulu_logo" className="object-contain" src="https://links.papareact.com/ua6" width={200} height={100} />
         </header>
     )
 }
