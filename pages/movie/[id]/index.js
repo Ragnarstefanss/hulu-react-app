@@ -68,8 +68,7 @@ export default function Movie({ movie, characters }) {
 
             {characters_cast.map((actor) => {
             return(
-
-              <div>
+              <div key={actor.id}>
                 <div>Actor name: {actor.name}</div>
                 <div>Id: {actor.id}</div>
                 <div>Popularity: {actor.popularity}</div>
