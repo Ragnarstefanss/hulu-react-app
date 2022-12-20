@@ -2,6 +2,7 @@ import Image from "next/image"
 import Head from "next/head";
 import Header from "../../../components/Header"
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
+import Cast from "../../../components/Cast";
 
 export default function Movie({ movie, characters }) {
   //console.log("hello", characters)
@@ -44,11 +45,11 @@ export default function Movie({ movie, characters }) {
       <div className="p-4">
         <div className="container mx-auto px-4 py-16">
           <div className="flex flex-col sm:flex-row">
-            <div className="sm:w-96 sm:mb-0 mb-6">
-              <img src={`${BASE_URL}${movie.poster_path || movie.backdrop_path}` || `${BASE_URL}${movie.poster_path}`} alt={movie.title} className="w-full rounded-lg shadow-lg" />
-            </div>
+            {/* <div className="sm:w-96 sm:mb-0 mb-6"> */}
+              <img src={`${BASE_URL}${movie.poster_path || movie.backdrop_path}` || `${BASE_URL}${movie.poster_path}`} alt={movie.title} className="w-1/4 h-1/4 rounded-lg shadow-lg" />
+            {/* </div> */}
             <div className="sm:ml-4 sm:mr-4">
-              <h2 className="text-4xl font-semibold text-white leading-tight mb-2">{movie.title}</h2>
+              <h2 className="text-6xl font-semibold text-white leading-tight mb-2">{movie.title}</h2>
               <div className="flex items-center text-gray-400 text-sm mb-4">
                 <svg className="fill-current text-orange-500 w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                 <span>{movie.vote_average}</span>
@@ -60,15 +61,11 @@ export default function Movie({ movie, characters }) {
                 ))}
               </div>
               <div className="flex flex-wrap space-y-4">
-                <h2 className="text-4xl font-semibold text-white leading-tight mb-2">Cast</h2>
+                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Cast</h2>
               </div>
               <div className="flex flex-wrap">
                 {characters_cast.slice(0, 12).map((member) => (
-                  <div className="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 p-4" key={member.id}>
-                    <img src={`${BASE_URL}${member.profile_path}`} alt={member.name} className="w-full h-48 object-cover rounded-lg" />
-                    <h2 className="text-lg font-bold mt-2">{member.name}</h2>
-                    <p className="text-sm text-gray-600">{member.character}</p>
-                  </div>
+                  <Cast key={member.id} member={member}/>
                 ))}
             </div>
             </div>
