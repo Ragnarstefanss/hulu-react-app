@@ -41,47 +41,44 @@ export default function Movie({ movie, characters }) {
   return (
     <>
       <Header />
-      <div className="p-2 group max-w-2xl">
-          
-          <Image
-            layout="responsive"
-            height={1080}
-            width={1920}
-            src={
-                `${BASE_URL}${movie.backdrop_path || movie.poster_path}` ||
-                `${BASE_URL}${movie.poster_path}`
-            }
-            alt="images"
-        />
-        <div className="p-2">
-            <p className="max-w-2xl">{movie.overview}</p>
-            <h2 className="mt-1 text-2xl text-white transition-all duration-100 ease-in-out group-hover:font-bold">
-                {movie.title || movie.original_name}
-            </h2>
-            <p className="flex items-center opacity-0 group-hover:opacity-100">
-                {movie.media_type && `${movie.media_type} •`}{" "}
-                {movie.release_date || movie.first_air_date} •{" "}
-                <HandThumbUpIcon className="h-5 mx-2" />
-                {movie.svote_count}
-            </p>
-
-
-            {characters["cast"]?.map((actor) => {
-            return(
-              <div key={actor.id}>
-                <div>Actor name: {actor.name}</div>
-                <div>Id: {actor.id}</div>
-                <div>Popularity: {actor.popularity}</div>
-                <div>Profile path: {actor.profile_path}</div>
-                <div>Character: {actor.character}</div>
-                <div>...</div>
+      <div className="p-4">
+        <div className="container mx-auto px-4 py-16">
+          <div className="flex flex-col sm:flex-row">
+            <div className="sm:w-96 sm:mb-0 mb-6">
+              <img src={`${BASE_URL}${movie.poster_path || movie.backdrop_path}` || `${BASE_URL}${movie.poster_path}`} alt={movie.title} className="w-full rounded-lg shadow-lg" />
+            </div>
+            <div className="sm:ml-4 sm:mr-4">
+              <h2 className="text-4xl font-semibold text-white leading-tight mb-2">{movie.title}</h2>
+              <div className="flex items-center text-gray-400 text-sm mb-4">
+                <svg className="fill-current text-orange-500 w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <span>{movie.vote_average}</span>
               </div>
-            )})}
+              <p className="text-gray-300 text-base leading-relaxed mb-4">{movie.overview}</p>
+              <div className="flex flex-wrap items-center text-gray-400 text-sm mb-4">
+                {movie.genres.map(genre => (
+                  <span key={genre.id} className="mr-4">{genre.name}</span>
+                ))}
+              </div>
+              <div className="flex flex-wrap space-y-4">
+                <h2 className="text-4xl font-semibold text-white leading-tight mb-2">Cast</h2>
+              </div>
+              <div className="flex flex-wrap">
+                {characters_cast.slice(0, 12).map((member) => (
+                  <div className="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 p-4" key={member.id}>
+                    <img src={`${BASE_URL}${member.profile_path}`} alt={member.name} className="w-full h-48 object-cover rounded-lg" />
+                    <h2 className="text-lg font-bold mt-2">{member.name}</h2>
+                    <p className="text-sm text-gray-600">{member.character}</p>
+                  </div>
+                ))}
+            </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     </>
   );
 }
+
 
 export async function getServerSideProps(context) {
   //query: { id: '436270' },
@@ -102,3 +99,75 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+    //  <div className="p-4">
+    //     <div className="container mx-auto px-4 py-16">
+    //       <div className="flex flex-col sm:flex-row">
+    //         <div className="sm:w-110 sm:mb-0 mb-6">
+    //           <img src={`${BASE_URL}${movie.backdrop_path || movie.poster_path}` || `${BASE_URL}${movie.poster_path}`} alt={movie.title} className="w-full rounded-lg shadow-lg" />
+    //         </div>
+    //         <div className="sm:ml-4 sm:mr-4">
+    //           <h2 className="text-4xl font-semibold text-white leading-tight mb-2">{movie.title}</h2>
+    //           <div className="flex items-center text-gray-400 text-sm mb-4">
+    //             <svg className="fill-current text-orange-500 w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+    //             <span>{movie.vote_average}</span>
+    //           </div>
+    //           <p className="text-gray-300 text-base leading-relaxed mb-4">{movie.overview}</p>
+    //           <div className="flex flex-wrap items-center text-gray-400 text-sm mb-4">
+    //             {movie.genres.map(genre => (
+    //               <span key={genre.id} className="mr-4">{genre.name}</span>
+    //             ))}
+    //           </div>
+    //         </div>
+    //       </div>
+    //       <div className="flex flex-wrap">
+    //         <h2 className="text-4xl font-semibold text-white leading-tight mb-2">Cast</h2>
+    //         {characters_cast.slice(0, 12).map((member) => (
+    //           <div className="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 p-4" key={member.id}>
+    //             <img src={`${BASE_URL}${member.profile_path}`} alt={member.name} className="w-full h-48 object-cover rounded-lg" />
+    //             <h2 className="text-lg font-bold mt-2">{member.name}</h2>
+    //             <p className="text-sm text-gray-600">{member.character}</p>
+    //           </div>
+    //         ))}
+    //       </div>
+    //     </div>
+    // </div>
+
+    //   <div className="p-2 group max-w-2xl">
+          
+    //       <Image
+    //         layout="responsive"
+    //         height={1080}
+    //         width={1920}
+    //         src={
+    //             `${BASE_URL}${movie.backdrop_path || movie.poster_path}` ||
+    //             `${BASE_URL}${movie.poster_path}`
+    //         }
+    //         alt="images"
+    //     />
+    //     <div className="p-2">
+    //         <p className="max-w-2xl">{movie.overview}</p>
+    //         <h2 className="mt-1 text-2xl text-white transition-all duration-100 ease-in-out group-hover:font-bold">
+    //             {movie.title || movie.original_name}
+    //         </h2>
+    //         <p className="flex items-center opacity-0 group-hover:opacity-100">
+    //             {movie.media_type && `${movie.media_type} •`}{" "}
+    //             {movie.release_date || movie.first_air_date} •{" "}
+    //             <HandThumbUpIcon className="h-5 mx-2" />
+    //             {movie.svote_count}
+    //         </p>
+
+
+    //         {characters["cast"]?.map((actor) => {
+    //         return(
+    //           <div key={actor.id}>
+    //             <div>Actor name: {actor.name}</div>
+    //             <div>Id: {actor.id}</div>
+    //             <div>Popularity: {actor.popularity}</div>
+    //             <div>Profile path: {actor.profile_path}</div>
+    //             <div>Character: {actor.character}</div>
+    //             <div>...</div>
+    //           </div>
+    //         )})}
+    //     </div>
+    // </div>
