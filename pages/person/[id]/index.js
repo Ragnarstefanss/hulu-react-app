@@ -3,7 +3,7 @@ import Head from "next/head";
 import Header from "../../../components/Header"
 
 
-export default function Person({ person }) {
+export default function Person({ person, popular }) {
   //console.log("hello", characters)
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   return (    
@@ -24,7 +24,9 @@ export default function Person({ person }) {
               </div>
               <p className="text-gray-300 text-base leading-relaxed mb-4">{person.biography}</p>
              {/* here */}
-
+             {popular["cast"].map((member) => (
+                  <h1>{member.title}</h1>
+            ))}
             </div>
             </div>
           </div>
@@ -37,13 +39,18 @@ export async function getServerSideProps(context) {
   //query: { id: '436270' },
   //resolvedUrl: '/movie/436270',
   const resolvedUrl = context.resolvedUrl
-  const actorrequest = await fetch(
+  const actor_request = await fetch(
     `https://api.themoviedb.org/3/${resolvedUrl}?api_key=${process.env.API_KEY}&language=en-US`
+  ).then((res) => res.json());
+
+const moviecredits_request = await fetch(
+    `https://api.themoviedb.org/3/${resolvedUrl}/movie_credits?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
   
   return {
     props: {
-      person: actorrequest,
+      person: actor_request,
+      movie_credits: moviecredits_request,
     },
   };
 }

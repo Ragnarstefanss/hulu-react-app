@@ -56,7 +56,7 @@ export default function Movie({ movie, characters }) {
               </div>
               <p className="text-gray-300 text-base leading-relaxed mb-4">{movie.overview}</p>
               <div className="flex flex-wrap items-center text-gray-400 text-sm mb-4">
-                {movie.genres.map(genre => (
+                {movie.genres && movie.genres.map(genre => (
                   <span key={genre.id} className="mr-4">{genre.name}</span>
                 ))}
               </div>
@@ -64,7 +64,7 @@ export default function Movie({ movie, characters }) {
                 <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Cast</h2>
               </div>
               <div className="flex flex-wrap">
-                {characters_cast.slice(0, 12).map((member) => (
+                {characters_cast && characters_cast.slice(0, 12).map((member) => (
                   <Cast key={member.id} member={member}/>
                 ))}
             </div>
