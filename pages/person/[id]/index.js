@@ -1,7 +1,9 @@
 import Image from "next/image"
 import Head from "next/head";
 import Header from "../../../components/Header"
-
+import Results from "../../../components/Results";
+import PersonThumbnailMovies from "../../../components/PersonThumbnailMovies";
+import FlipMove from "react-flip-move";
 
 export default function Person({ person, popular }) {
   //console.log("hello", characters)
@@ -24,9 +26,14 @@ export default function Person({ person, popular }) {
               </div>
               <p className="text-gray-300 text-base leading-relaxed mb-4">{person.biography}</p>
              {/* here */}
-             {popular["cast"].map((member) => (
-                  <h1>{member.title}</h1>
-            ))}
+
+              <FlipMove className="px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-5">
+                {popular && popular["cast"].map((member) => (
+                    
+                    <PersonThumbnailMovies key={member.id} result={member}/>
+                ))}
+            </FlipMove>
+             
             </div>
             </div>
           </div>
@@ -50,7 +57,7 @@ const moviecredits_request = await fetch(
   return {
     props: {
       person: actor_request,
-      movie_credits: moviecredits_request,
+      popular: moviecredits_request,
     },
   };
 }
