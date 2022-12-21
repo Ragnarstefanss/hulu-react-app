@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import { forwardRef } from "react";
 import { useRouter } from 'next/router'
@@ -18,12 +18,15 @@ const PersonThumbnailMovies = forwardRef(({ result }, ref) => {
             })
         }}>
                 <Image
-                    layout="responsive"
                     height={300}
                     width={120}
                     src={ result.poster_path ? `${BASE_URL}${result.poster_path || result.backdrop_path}` ||`${BASE_URL}${result.poster_path}` : require('../assets/no_image.jpg')}
                     alt="images"
-                />
+                    sizes="100vw"
+                    style={{
+                        width: "100%",
+                        height: "auto"
+                    }} />
                 <div className="p-2">
                     <p className="truncate max-w-md">{result.overview}</p>
                     <h2 className="mt-1 text-2xl text-white transition-all duration-100 ease-in-out group-hover:font-bold">
