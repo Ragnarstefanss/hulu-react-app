@@ -4,6 +4,7 @@ import { forwardRef } from "react";
 import { useRouter } from 'next/router'
 import Link from "next/link";
 
+
 const PersonThumbnailMovies = forwardRef(({ result }, ref) => {
     const BASE_URL = "https://image.tmdb.org/t/p/original/";
     const router = useRouter();
@@ -20,10 +21,7 @@ const PersonThumbnailMovies = forwardRef(({ result }, ref) => {
                     layout="responsive"
                     height={300}
                     width={120}
-                    src={
-                        `${BASE_URL}${result.poster_path || result.backdrop_path }` ||
-                        `${BASE_URL}${result.poster_path}`
-                    }
+                    src={ result.poster_path ? `${BASE_URL}${result.poster_path || result.backdrop_path}` ||`${BASE_URL}${result.poster_path}` : require('../assets/no_image.jpg')}
                     alt="images"
                 />
                 <div className="p-2">

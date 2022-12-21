@@ -3,6 +3,7 @@ import Head from "next/head";
 import Header from "../../../components/Header"
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import Cast from "../../../components/Cast";
+const Logo = require('../../../assets/no_image.jpg');
 
 export default function Movie({ movie, characters }) {
   //console.log("hello", characters)
@@ -38,7 +39,7 @@ export default function Movie({ movie, characters }) {
   const characters_cast = characters["cast"]
   //{adult, gender, id, known_for_department, name, original_name, popularity, profile_path, credit_id, department, job})
   const characters_crew = characters["crew"]
-
+  
   return (
     <>
       <Header />
@@ -46,7 +47,12 @@ export default function Movie({ movie, characters }) {
         <div className="container mx-auto px-4 py-16">
           <div className="flex flex-col sm:flex-row">
             {/* <div className="sm:w-96 sm:mb-0 mb-6"> */}
-              <img src={`${BASE_URL}${movie.poster_path || movie.backdrop_path}` || `${BASE_URL}${movie.poster_path}`} alt={movie.title} className="w-1/4 h-1/4 rounded-lg shadow-lg" />
+
+              <img 
+               src={ movie.poster_path == "sss" ? `${BASE_URL}${movie.poster_path || movie.backdrop_path}` ||`${BASE_URL}${movie.poster_path}` : Logo}
+              alt={movie.title} 
+              className="w-1/4 h-1/4 rounded-lg shadow-lg" 
+              />
             {/* </div> */}
             <div className="sm:ml-4 sm:mr-4">
               <h2 className="text-6xl font-semibold text-white leading-tight mb-2">{movie.title}</h2>
