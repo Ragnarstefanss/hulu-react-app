@@ -3,9 +3,11 @@ import Head from "next/head";
 import Header from "../../../components/Header"
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import Cast from "../../../components/Cast";
+
+import SimilarItems from "../../../components/SimilarItems";
 const Logo = require('../../../assets/no_image.jpg');
 
-export default function Tv({ tv, characters }) {
+export default function Tv({ tv, characters, recommendation, similar  }) {
   //console.log("hello", characters)
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
 
@@ -47,6 +49,22 @@ export default function Tv({ tv, characters }) {
                   <Cast key={member.id} member={member}/>
                 ))}
             </div>
+            <div className="flex flex-wrap space-y-4">
+                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Recommendation</h2>
+            </div>
+            <div className="flex flex-wrap">
+                {recommendation && recommendation["results"].slice(0, 6).map((recommendation) => (
+                  <SimilarItems key={recommendation.id} similar={recommendation}/>
+                ))}
+            </div>
+            <div className="flex flex-wrap space-y-4">
+                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Similar</h2>
+            </div>
+            <div className="flex flex-wrap">
+                {similar && similar["results"].slice(0, 6).map((similar) => (
+                  <SimilarItems key={similar.id} similar={similar}/>
+                ))}
+            </div>
             </div>
           </div>
         </div>
@@ -64,6 +82,14 @@ export async function getServerSideProps(context) {
     `https://api.themoviedb.org/3/${resolvedUrl}?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
   
+    const similarmovierequest = await fetch(
+    `https://api.themoviedb.org/3/${resolvedUrl}/similar?api_key=${process.env.API_KEY}&language=en-US`
+  ).then((res) => res.json());
+  
+  const recommendationmovierequest = await fetch(
+    `https://api.themoviedb.org/3/${resolvedUrl}/recommendations?api_key=${process.env.API_KEY}&language=en-US`
+  ).then((res) => res.json());
+
   const charactersrequest = await fetch(
     `https://api.themoviedb.org/3/${resolvedUrl}/credits?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
@@ -71,7 +97,9 @@ export async function getServerSideProps(context) {
   return {
     props: {
       tv: tvrequest,
-      characters: charactersrequest
+      characters: charactersrequest,
+      recommendation: recommendationmovierequest,
+      similar: similarmovierequest
     },
   };
 }
