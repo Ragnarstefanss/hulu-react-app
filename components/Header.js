@@ -7,7 +7,7 @@ import {
     MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline"
 
-import Image from "next/image"
+import Image from "next/legacy/image";
 import HeaderItem from "./HeaderItem"
 import { forwardRef } from "react";
 import { useRouter } from 'next/router'
