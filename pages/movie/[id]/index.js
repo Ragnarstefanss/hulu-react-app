@@ -3,10 +3,10 @@ import Head from "next/head";
 import Header from "../../../components/Header"
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import Cast from "../../../components/Cast";
-import SimilarContent from "../../../components/SimilarContent";
+import SimilarItems from "../../../components/SimilarItems";
 const Logo = require('../../../assets/no_image.jpg');
 
-export default function Movie({ movie, characters, similar }) {
+export default function Movie({ movie, characters, recommendation, similar }) {
   //console.log("hello", characters)
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   //{adult, gender, id, known_for_department, name, original_name, popularity, profile_path, cast_id, character, credit_id, order}
@@ -49,11 +49,19 @@ export default function Movie({ movie, characters, similar }) {
                 ))}
             </div>
             <div className="flex flex-wrap space-y-4">
-                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Recommendations</h2>
+                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Recommendation</h2>
             </div>
             <div className="flex flex-wrap">
-                {similar && similar["results"].slice(0, 12).map((similar) => (
-                  <SimilarContent key={similar.id} similar={similar}/>
+                {recommendation && recommendation["results"].slice(0, 6).map((recommendation) => (
+                  <SimilarItems key={recommendation.id} similar={recommendation}/>
+                ))}
+            </div>
+            <div className="flex flex-wrap space-y-4">
+                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Similar</h2>
+            </div>
+            <div className="flex flex-wrap">
+                {similar && similar["results"].slice(0, 6).map((similar) => (
+                  <SimilarItems key={similar.id} similar={similar}/>
                 ))}
             </div>
             </div>
@@ -77,6 +85,11 @@ export async function getServerSideProps(context) {
     `https://api.themoviedb.org/3/${resolvedUrl}/similar?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
   
+  const recommendationmovierequest = await fetch(
+    `https://api.themoviedb.org/3/${resolvedUrl}/recommendations?api_key=${process.env.API_KEY}&language=en-US`
+  ).then((res) => res.json());
+  
+
   const charactersrequest = await fetch(
     `https://api.themoviedb.org/3/${resolvedUrl}/credits?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
@@ -85,6 +98,7 @@ export async function getServerSideProps(context) {
     props: {
       movie: movierequest,
       characters: charactersrequest,
+      recommendation: recommendationmovierequest,
       similar: similarmovierequest
     },
   };

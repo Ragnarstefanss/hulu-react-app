@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { useRouter } from 'next/router'
 import Link from "next/link";
 
-const SimilarContent = forwardRef(({ similar }, ref) => {
+const SimilarItems = forwardRef(({ similar }, ref) => {
     const BASE_URL = "https://image.tmdb.org/t/p/original/";
     const router = useRouter();
     const item = similar
@@ -22,6 +22,6 @@ const SimilarContent = forwardRef(({ similar }, ref) => {
     );
 })
 
-SimilarContent.displayName = "Similar Content";
+SimilarItems.displayName = "Similar Content";
 
-export default SimilarContent;
+export default SimilarItems;
