@@ -12,12 +12,12 @@ import Image from "next/image";
 
 export default function Account({ }) {
   const router = useRouter();
-  const isLoggedIn = false; // replace this with your own logic to check if the user is logged in
+  const isLoggedIn = true; // replace this with your own logic to check if the user is logged in
 
   if (isLoggedIn) {
     return <AccountsPage />;
   } else {
-    router.push('/login');
+    //router.push('/login');
   }
     
 }
