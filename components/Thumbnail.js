@@ -9,11 +9,9 @@ const Thumbnail = forwardRef(({ result }, ref) => {
     const router = useRouter();
 
     return (
-        <Link href={`/movie/${result.id}`}>
+        <Link href={`${result.media_type}/${result.id}`}>
             <div ref={ref} className="p-2 group cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50" onClick={() => {
-            router.push({
-            pathname: '/movie/[id]',
-            query: { id: result.id },
+            router.push({pathname: result.media_type+'/[id]', query: { id: result.id },
             })
         }}>
                 <Image
