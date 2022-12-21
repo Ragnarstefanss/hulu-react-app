@@ -49,7 +49,7 @@ export default function Movie({ movie, characters }) {
             {/* <div className="sm:w-96 sm:mb-0 mb-6"> */}
 
               <img 
-               src={ movie.poster_path == "sss" ? `${BASE_URL}${movie.poster_path || movie.backdrop_path}` ||`${BASE_URL}${movie.poster_path}` : Logo}
+               src={ movie.poster_path ? `${BASE_URL}${movie.poster_path || movie.backdrop_path}` ||`${BASE_URL}${movie.poster_path}` : Logo}
               alt={movie.title} 
               className="w-1/4 h-1/4 rounded-lg shadow-lg" 
               />
