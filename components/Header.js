@@ -26,7 +26,7 @@ function Header() {
                 <div onClick={() => { router.push({ pathname: '/search', query: {}, }) }}><HeaderItem title='SEARCH' Icon={MagnifyingGlassIcon} /></div>
                 <div onClick={() => { router.push({ pathname: '/account', query: {}, }) }}><HeaderItem title='ACCOUNT' Icon={UserIcon} /></div>
             </div>
-            <div onClick={() => { router.push({ pathname: '/', query: {}, }) }}><Image alt="hulu_logo" className="object-contain" src="https://links.papareact.com/ua6" width={200} height={100} /></div>
+            <div className="cursor-pointer" onClick={() => { router.push({ pathname: '/', query: {}, }) }}><Image alt="hulu_logo" className="object-contain" src="https://links.papareact.com/ua6" width={200} height={100} /></div>
         </header>
     )
 }
