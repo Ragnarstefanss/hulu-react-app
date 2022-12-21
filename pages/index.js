@@ -18,15 +18,6 @@ export default function Home({ results }) {
       <Header />
       <Nav />
       <Results results={results} />
-      <div className="flex justify-center">
-        <Image
-          className="object-contain"
-          height={100}
-          width={100}
-          src={''}
-          alt="tmdb"
-        />
-      </div>
     </div>
   );
 }
