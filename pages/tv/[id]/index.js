@@ -4,6 +4,7 @@ import Header from "../../../components/Header"
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import Cast from "../../../components/Cast";
 
+import requests from "../../../utils/requests";
 import SimilarItems from "../../../components/SimilarItems";
 import Thumbnail from "../../../components/Thumbnail";
 import ShowSeason from "../../../components/TV/ShowSeason";
@@ -35,6 +36,7 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
   //{adult, gender, id, known_for_department, name, original_name, popularity, profile_path, credit_id, department, job})
   // console.log(tv.seasons)
   const seasons = tv["seasons"]
+  console.log(season)
 
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [episodes, setEpisodes] = useState([]);
@@ -57,7 +59,7 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
               {/* <div className="flex flex-wrap space-y-4">
                 <h1 className="text-2xl font-semibold text-white leading-tight mb-2">{seasons.map((member) => (member.name))}</h1>
               </div> */}
-              
+
               {seasons && seasons.map((season_) => (
                   <h2
                       key={season_.is}
@@ -92,6 +94,7 @@ export async function getServerSideProps(context) {
   //resolvedUrl: '/tv/436270',
   const resolvedUrl = context.resolvedUrl
   const season = context.query.season ? context.query.season : 1;
+  const newseason = context.query.season
 
   const tvrequest = await fetch(
     `https://api.themoviedb.org/3/${resolvedUrl}?api_key=${process.env.API_KEY}&language=en-US`
@@ -113,10 +116,14 @@ export async function getServerSideProps(context) {
     `https://api.themoviedb.org/3/${resolvedUrl}/season/${season}?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
 
+  const newseasonrequest = await fetch(
+    `https://api.themoviedb.org/3/${resolvedUrl}/season/${requests[newseason]?.url || 1}?api_key=${process.env.API_KEY}`
+  ).then((res) => res.json());
+
   return {
     props: {
       tv: tvrequest,
-      season: seasonrequest,
+      season: newseasonrequest,
       characters: charactersrequest,
       recommendation: recommendationmovierequest,
       similar: similarmovierequest
