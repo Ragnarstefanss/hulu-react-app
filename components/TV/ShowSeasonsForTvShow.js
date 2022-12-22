@@ -1,7 +1,7 @@
 import SimilarItems from "../SimilarItems";
 import SeasonDetails from "./SeasonDetails";
 
-function ShowSeasonsForTvShow({ type_name, items }) {
+function ShowSeasonsForTvShow({ tv_show_id, type_name, items }) {
     return (
         <div className="mb-10">
             <div className="flex flex-wrap space-y-4">
@@ -9,7 +9,7 @@ function ShowSeasonsForTvShow({ type_name, items }) {
             </div>
             <div className="flex flex-wrap my-5">
                 {items && items.map((item) => (
-                    <SeasonDetails key={item.id} season={item}/>
+                    <SeasonDetails tv_show_id={tv_show_id} key={item.id} season={item}/>
                 ))}
             </div>
         </div>

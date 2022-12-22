@@ -14,8 +14,8 @@ export default function Person({ person, popular }) {
       <div className="p-4">
         <div className="container mx-auto px-4 py-16">
           <div className="flex flex-col sm:flex-row">
-            {/* <div className="sm:w-96 sm:mb-0 mb-6"> */}
-              <img src={`${BASE_URL}${person.profile_path}`} alt={person.name} class="w-1/4 h-1/4"/>
+            {/* <div className="sm:w-96 sm:mb-0 mb-6"> */}      
+            <Image width={300} height={300} src={ person.profile_path ? `${BASE_URL}${person.profile_path || person.backdrop_path}` ||`${BASE_URL}${person.profile_path}` : require('../../../assets/no_image.jpg')} alt={person.name} class="w-1/4 h-1/4"/>
             {/* //   className="w-full rounded-lg shadow-lg" /> */}
             {/* </div> */}
             <div className="sm:ml-4 sm:mr-4">

@@ -18,8 +18,8 @@ const PersonThumbnailMovies = forwardRef(({ result }, ref) => {
             })
         }}>
                 <Image
-                    height={300}
-                    width={120}
+                    height={1}
+                    width={1}
                     src={ result.poster_path ? `${BASE_URL}${result.poster_path || result.backdrop_path}` ||`${BASE_URL}${result.poster_path}` : require('../assets/no_image.jpg')}
                     alt="images"
                     sizes="100vw"

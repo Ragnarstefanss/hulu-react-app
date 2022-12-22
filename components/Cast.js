@@ -15,7 +15,7 @@ const Cast = forwardRef(({ member }, ref) => {
             query: { id: member.id },
             })
         }}>
-            <img src={`${BASE_URL}${member.profile_path}`} alt={member.name} className="w-full h-48 object-cover rounded-lg" />
+            <Image width={200} height={200} src={ member.profile_path ? `${BASE_URL}${member.profile_path || member.backdrop_path}` ||`${BASE_URL}${member.profile_path}` : require('../assets/no_image.jpg')}  alt={member.name} className="w-full h-48 object-cover rounded-lg" />
             <h2 className="text-lg font-bold mt-2">{member.name}</h2>
             <p className="text-sm text-gray-600">{member.character}</p>
         </div>        

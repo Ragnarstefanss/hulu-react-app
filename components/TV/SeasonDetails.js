@@ -4,15 +4,15 @@ import { forwardRef } from "react";
 import { useRouter } from 'next/router'
 import Link from "next/link";
 
-const SeasonDetails = forwardRef(({ season }, ref) => {
+const SeasonDetails = forwardRef(({ tv_show_id, season }, ref) => {
     const BASE_URL = "https://image.tmdb.org/t/p/original/";
     const router = useRouter();
     const item = season
     return (
         <div className="w-1/2 sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 p-4 cursor-pointer mb-5" ref={ref} onClick={() => {
             router.push({
-            pathname: season.media_type ? '/'+season.media_type+'/[id]' : '/tv/[id]',
-            query: { id: item.id },
+            pathname: season.media_type ? '/'+season.media_type+'/[id]/season/[season_id]' : '/tv/[id]/season/[season_id]',
+            query: { id: tv_show_id, season_id: season.season_number},
             })
         }}>
             <img src={`${BASE_URL}${item.poster_path}`} alt={item.name} className="w-full h-full object-cover rounded-lg" />
