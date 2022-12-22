@@ -10,6 +10,13 @@ import ShowSeason from "../../../components/TV/ShowSeason";
 const Logo = require('../../../assets/no_image.jpg');
 import FlipMove from "react-flip-move";
 import React, { useState, useEffect } from 'react';
+import { forwardRef } from "react";
+import { useRouter } from 'next/router'
+import Link from "next/link";
+import ShowTvSeriesDetails from "../../../components/helper/ShowTvSeriesDetails";
+import ShowSimilarItems from "../../../components/helper/ShowSimilarItems";
+import ShowCastMembers from "../../../components/helper/ShowCastMembers";
+
 
 async function getEpisodes(showId, seasonNumber) {
   const data = await fetch(
@@ -21,6 +28,7 @@ async function getEpisodes(showId, seasonNumber) {
 export default function Tv({ tv, season, characters, recommendation, similar  }) {
   //console.log("hello", characters)
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
+  const router = useRouter();
 
   //{adult, gender, id, known_for_department, name, original_name, popularity, profile_path, cast_id, character, credit_id, order}
   const characters_cast = characters["cast"]
@@ -37,75 +45,39 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
       <div className="p-4">
         <div className="container mx-auto px-4 py-16">
           <div className="flex flex-col sm:flex-row">
-            {/* <div className="sm:w-96 sm:mb-0 mb-6"> */}
-
-              <img 
-               src={ tv.poster_path ? `${BASE_URL}${tv.poster_path || tv.backdrop_path}` ||`${BASE_URL}${tv.poster_path}` : Logo}
+            <img 
+              src={ tv.poster_path ? `${BASE_URL}${tv.poster_path || tv.backdrop_path}` ||`${BASE_URL}${tv.poster_path}` : Logo}
               alt={tv.name} 
               className="w-1/4 h-1/4 rounded-lg shadow-lg" 
-              />
-            {/* </div> */}
+            />
             <div className="sm:ml-4 sm:mr-4">
-              <h1 className="text-6xl font-semibold text-white leading-tight mb-2">{tv.name}</h1>
-              <div className="flex items-center text-gray-400 text-sm mb-4">
-                <svg className="fill-current text-orange-500 w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h14v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                <span>{tv.vote_average}</span>
-              </div>
-              <p className="text-gray-300 text-base leading-relaxed mb-4">{tv.overview}</p>
-              <div className="flex flex-wrap items-center text-gray-400 text-sm mb-4">
-                {tv.genres && tv.genres.map(genre => (
-                  <span key={genre.id} className="mr-4">{genre.name}</span>
-                ))}
-              </div>
+              <ShowTvSeriesDetails tv={tv} />
               
               
               {/* <div className="flex flex-wrap space-y-4">
                 <h1 className="text-2xl font-semibold text-white leading-tight mb-2">{seasons.map((member) => (member.name))}</h1>
               </div> */}
-            {seasons.map((season_) => (
-                        <h2
-                            key={season_.is}
-                            onClick={() => router.push(`/?season=${season_.id}`)}
-                            className="last:pr-24 cursor-pointer"
-                        >
-                            {season_.season_number == "Specials" ? "Special": "Season " + season_.season_number}
-                        </h2>
-                        
-                    ))}
-
-
+              
+              {seasons && seasons.map((season_) => (
+                  <h2
+                      key={season_.is}
+                      onClick={() => router.push(`./${tv.id}/?season=${season_.season_number}`)}
+                      className="last:pr-24 cursor-pointer"
+                  >
+                      {season_.season_number == 0 ? "Special": "Season " + season_.season_number}
+                  </h2>
+              ))}
               <FlipMove className="my-5 sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-5">
-                {season.episodes.map((result) => (
+                {season.episodes && season.episodes.map((result) => (
                     <ShowSeason key={result.id} episode={result}/>
                 ))}
               </FlipMove>
 
 
-
-              <div className="flex flex-wrap space-y-4">
-                <h1 className="text-2xl font-semibold text-white leading-tight mb-2">Cast</h1>
-              </div>
-              <div className="flex flex-wrap my-5">
-                {characters_cast && characters_cast.slice(0, 12).map((member) => (
-                  <Cast key={member.id} member={member}/>
-                ))}
-            </div>
-            <div className="flex flex-wrap space-y-4">
-                <h1 className="text-2xl font-semibold text-white leading-tight mb-2">Recommendation</h1>
-            </div>
-            <div className="flex flex-wrap my-5">
-                {recommendation && recommendation["results"].slice(0, 6).map((recommendation) => (
-                  <SimilarItems key={recommendation.id} similar={recommendation}/>
-                ))}
-            </div>
-            <div className="flex flex-wrap space-y-4">
-                <h1 className="text-2xl font-semibold text-white leading-tight mb-2">Similar</h1>
-            </div>
-            <div className="flex flex-wrap my-5">
-                {similar && similar["results"].slice(0, 6).map((similar) => (
-                  <SimilarItems key={similar.id} similar={similar}/>
-                ))}
-            </div>
+              <ShowCastMembers type_name={"Cast"} items={characters_cast}/>
+              <ShowSimilarItems type_name={"Recommendations"} items={recommendation}/>
+              <ShowSimilarItems type_name={"Similar"} items={similar}/>
+            
             </div>
           </div>
         </div>
