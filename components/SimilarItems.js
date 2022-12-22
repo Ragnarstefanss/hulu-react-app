@@ -11,7 +11,7 @@ const SimilarItems = forwardRef(({ similar }, ref) => {
     return (
         <div className="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 p-4 cursor-pointer" ref={ref} onClick={() => {
             router.push({
-            pathname: '/movie/[id]',
+            pathname: similar.media_type ? '/'+similar.media_type+'/[id]' : '/movie/[id]',
             query: { id: item.id },
             })
         }}>

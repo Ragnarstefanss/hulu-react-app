@@ -5,9 +5,10 @@ import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import Cast from "../../../components/Cast";
 
 import SimilarItems from "../../../components/SimilarItems";
+import Thumbnail from "../../../components/Thumbnail";
 const Logo = require('../../../assets/no_image.jpg');
 
-export default function Tv({ tv, characters, recommendation, similar  }) {
+export default function Tv({ tv, season, characters, recommendation, similar  }) {
   //console.log("hello", characters)
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
 
@@ -41,6 +42,11 @@ export default function Tv({ tv, characters, recommendation, similar  }) {
                   <span key={genre.id} className="mr-4">{genre.name}</span>
                 ))}
               </div>
+              {/* <div className="flex flex-wrap">
+                {season.episodes.map((result) => (
+                    <Thumbnail key={result.id} result={result}/>
+                ))}
+              </div> */}
               <div className="flex flex-wrap space-y-4">
                 <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Cast</h2>
               </div>
@@ -78,6 +84,8 @@ export async function getServerSideProps(context) {
   //query: { id: '436270' },
   //resolvedUrl: '/tv/436270',
   const resolvedUrl = context.resolvedUrl
+  const season = context.query.season ? context.query.season : "1";
+
   const tvrequest = await fetch(
     `https://api.themoviedb.org/3/${resolvedUrl}?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
@@ -94,9 +102,14 @@ export async function getServerSideProps(context) {
     `https://api.themoviedb.org/3/${resolvedUrl}/credits?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
 
+  const seasonrequest = await fetch(
+    `https://api.themoviedb.org/3/${resolvedUrl}/season/${season}?api_key=${process.env.API_KEY}&language=en-US`
+  ).then((res) => res.json());
+
   return {
     props: {
       tv: tvrequest,
+      season: seasonrequest,
       characters: charactersrequest,
       recommendation: recommendationmovierequest,
       similar: similarmovierequest
