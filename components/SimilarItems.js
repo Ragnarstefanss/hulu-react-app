@@ -16,9 +16,9 @@ const SimilarItems = forwardRef(({ similar }, ref) => {
             })
         }}>
             <img src={`${BASE_URL}${item.poster_path}`} alt={item.title} className="w-full h-48 object-cover rounded-lg" />
-            <h2 className="text-lg font-bold mt-2">{item.title}</h2>
-            <p className="text-sm text-gray-600">{item.release_date}</p>
-        </div>        
+            <h2 className="text-lg font-bold mt-2">{item.title?item.title:item.name}</h2>
+            <p className="text-sm text-gray-600">{item.release_date?item.release_date:item.air_date}</p>
+        </div>
     );
 })
 

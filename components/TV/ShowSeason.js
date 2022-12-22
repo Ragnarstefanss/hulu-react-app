@@ -10,7 +10,7 @@ const ShowSeason = forwardRef(({ episode }, ref) => {
     const router = useRouter();
     
     return (
-        <div ref={ref} className="p-2 group sm:hover:scale-105 hover:z-50">
+        <div className="p-2 group sm:hover:scale-105 hover:z-50">
             <Image
                 height={1080}
                 width={1920}

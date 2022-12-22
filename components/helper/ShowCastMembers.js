@@ -1,6 +1,9 @@
 import Cast from "../Cast";
 
 function ShowCastMembers({ type_name, items }) {
+    if(items == undefined){
+      return
+    }
     return (
         <div>
               <div className="flex flex-wrap space-y-4">
