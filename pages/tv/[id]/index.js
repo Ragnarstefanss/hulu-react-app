@@ -9,8 +9,14 @@ import Thumbnail from "../../../components/Thumbnail";
 import ShowSeason from "../../../components/TV/ShowSeason";
 const Logo = require('../../../assets/no_image.jpg');
 import FlipMove from "react-flip-move";
+import React, { useState, useEffect } from 'react';
 
-
+async function getEpisodes(showId, seasonNumber) {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}?api_key=${process.env.API_KEY}`
+  ).then((res) => res.json());
+  return data;
+}
 
 export default function Tv({ tv, season, characters, recommendation, similar  }) {
   //console.log("hello", characters)
@@ -19,8 +25,12 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
   //{adult, gender, id, known_for_department, name, original_name, popularity, profile_path, cast_id, character, credit_id, order}
   const characters_cast = characters["cast"]
   //{adult, gender, id, known_for_department, name, original_name, popularity, profile_path, credit_id, department, job})
-  console.log(tv.seasons)
+  // console.log(tv.seasons)
   const seasons = tv["seasons"]
+
+  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [episodes, setEpisodes] = useState([]);
+
   return (
     <>
       <Header />
@@ -49,9 +59,21 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
               </div>
               
               
-              <div className="flex flex-wrap space-y-4">
+              {/* <div className="flex flex-wrap space-y-4">
                 <h1 className="text-2xl font-semibold text-white leading-tight mb-2">{seasons.map((member) => (member.name))}</h1>
-              </div>
+              </div> */}
+            {seasons.map((season_) => (
+                        <h2
+                            key={season_.is}
+                            onClick={() => router.push(`/?season=${season_.id}`)}
+                            className="last:pr-24 cursor-pointer"
+                        >
+                            {season_.season_number == "Specials" ? "Special": "Season " + season_.season_number}
+                        </h2>
+                        
+                    ))}
+
+
               <FlipMove className="my-5 sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-5">
                 {season.episodes.map((result) => (
                     <ShowSeason key={result.id} episode={result}/>
