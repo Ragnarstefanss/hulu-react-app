@@ -4,14 +4,14 @@ import { forwardRef } from "react";
 import { useRouter } from 'next/router'
 import Link from "next/link";
 
-const SimilarItems = forwardRef(({ similar }, ref) => {
+const SimilarItems = forwardRef(({ similar, media_type }, ref) => {
     const BASE_URL = "https://image.tmdb.org/t/p/original/";
     const router = useRouter();
     const item = similar
     return (
         <div className="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 p-4 cursor-pointer" ref={ref} onClick={() => {
             router.push({
-            pathname: similar.media_type ? '/'+similar.media_type+'/[id]' : '/movie/[id]',
+            pathname: media_type ? '/'+media_type+'/[id]' : '/movie/[id]',
             query: { id: item.id },
             })
         }}>

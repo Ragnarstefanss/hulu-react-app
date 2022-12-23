@@ -53,7 +53,7 @@ export default function Movie({ movie, characters, recommendation, similar }) {
             </div>
             <div className="flex flex-wrap">
                 {recommendation && recommendation["results"].slice(0, 6).map((recommendation) => (
-                  <SimilarItems key={recommendation.id} similar={recommendation}/>
+                  <SimilarItems key={recommendation.id} similar={recommendation} media_type={"movie"}/>
                 ))}
             </div>
             <div className="flex flex-wrap space-y-4">
@@ -61,7 +61,7 @@ export default function Movie({ movie, characters, recommendation, similar }) {
             </div>
             <div className="flex flex-wrap">
                 {similar && similar["results"].slice(0, 6).map((similar) => (
-                  <SimilarItems key={similar.id} similar={similar}/>
+                  <SimilarItems key={similar.id} similar={similar} media_type={"movie"}/>
                 ))}
             </div>
             </div>

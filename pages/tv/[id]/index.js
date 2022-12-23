@@ -66,8 +66,8 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
 
 
               <ShowCastMembers type_name={"Cast"} items={characters_cast}/>
-              <ShowSimilarItems type_name={"Recommendations"} items={recommendation}/>
-              <ShowSimilarItems type_name={"Similar"} items={similar}/>
+              <ShowSimilarItems type_name={"Recommendations"} items={recommendation} media_type={"tv"}/>
+              <ShowSimilarItems type_name={"Similar"} items={similar} media_type={"tv"}/>
 
             </div>
           </div>

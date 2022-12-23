@@ -1,6 +1,6 @@
 import SimilarItems from "../SimilarItems";
 
-function ShowSimilarItems({ type_name, items }) {
+function ShowSimilarItems({ type_name, items, media_type }) {
     return (
         <div>
             <div className="flex flex-wrap space-y-4">
@@ -8,7 +8,7 @@ function ShowSimilarItems({ type_name, items }) {
             </div>
             <div className="flex flex-wrap my-5">
                 {items && items["results"].slice(0, 6).map((item) => (
-                    <SimilarItems key={item.id} similar={item}/>
+                    <SimilarItems key={item.id} similar={item} media_type={media_type}/>
                 ))}
             </div>
         </div>
