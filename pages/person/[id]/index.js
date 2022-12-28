@@ -8,6 +8,7 @@ import FlipMove from "react-flip-move";
 export default function Person({ person, popular }) {
   //console.log("hello", characters)
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
+  console.log(popular)
   return (    
    <>
       <Header />
@@ -28,7 +29,7 @@ export default function Person({ person, popular }) {
              {/* here */}
 
               <FlipMove className="px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-5">
-                {popular && popular["cast"].map((member) => (
+                {popular && popular["cast"].sort((a, b) => b.popularity - a.popularity).map((member) => (
                     
                     <PersonThumbnailMovies key={member.id} result={member}/>
                 ))}
