@@ -6,7 +6,7 @@ import Cast from "../../../components/Cast";
 import SimilarItems from "../../../components/SimilarItems";
 import ShowSimilarItems from "../../../components/helper/ShowSimilarItems";
 import ShowCastMembers from "../../../components/helper/ShowCastMembers";
-import ShowTvSeriesDetails from "../../../components/TV/ShowTvSeriesDetails";
+import ShowContentsDetails from "../../../components/TV/ShowContentsDetails";
 const Logo = require('../../../assets/no_image.jpg');
 
 export default function Movie({ movie, characters, recommendation, similar }) {
@@ -43,7 +43,7 @@ export default function Movie({ movie, characters, recommendation, similar }) {
                   <span key={genre.id} className="mr-4">{genre.name}</span>
                 ))}
               </div> */}
-            <ShowTvSeriesDetails tv={movie} />
+            <ShowContentsDetails item={movie} />
             <ShowCastMembers type_name={"Cast"} items={characters_cast}/>
             <ShowSimilarItems type_name={"Recommendations"} items={recommendation} />
             <ShowSimilarItems type_name={"Similar"} items={similar}/>

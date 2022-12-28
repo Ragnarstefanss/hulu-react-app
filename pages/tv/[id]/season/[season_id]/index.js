@@ -5,7 +5,7 @@ import ShowSeason from "../../../../../components/TV/ShowSeason";
 import FlipMove from "react-flip-move";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import ShowTvSeriesDetails from "../../../../../components/TV/ShowTvSeriesDetails";
+import ShowContentsDetails from "../../../../../components/TV/ShowContentsDetails";
 import ShowSimilarItems from "../../../../../components/helper/ShowSimilarItems";
 import ShowCastMembers from "../../../../../components/helper/ShowCastMembers";
 const Logo = require('../../../../../assets/no_image.jpg');
@@ -32,7 +32,7 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
               className="w-1/4 h-1/4 rounded-lg shadow-lg"
             />
             <div className="sm:ml-4 sm:mr-4">
-              <ShowTvSeriesDetails tv={tv} />
+              <ShowContentsDetails item={tv} />
               
               {/* <FlipMove className="my-5 sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-5">
                 {episodes&& episodes.map((result) => (

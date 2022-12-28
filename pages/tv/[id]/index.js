@@ -5,13 +5,13 @@ import ShowSeason from "../../../components/TV/ShowSeason";
 import FlipMove from "react-flip-move";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import ShowTvSeriesDetails from "../../../components/TV/ShowTvSeriesDetails";
 import ShowSimilarItems from "../../../components/helper/ShowSimilarItems";
 import ShowCastMembers from "../../../components/helper/ShowCastMembers";
 const Logo = require('../../../assets/no_image.jpg');
 import ShowSeasonsForTvShow from "../../../components/TV/ShowSeasonsForTvShow";
 
 import Link from 'next/link';
+import ShowContentsDetails from "../../../components/TV/ShowContentsDetails";
 
 export default function Tv({ tv, season, characters, recommendation, similar  }) {
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
@@ -35,7 +35,7 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
             />
             
             <div className="sm:ml-4 sm:mr-4">
-              <ShowTvSeriesDetails tv={tv} />
+              <ShowContentsDetails item={tv} />
               <ShowSeasonsForTvShow tv_show_id={tv.id} type_name={"Seasons"} items={number_of_seasons}/>
               <ShowCastMembers type_name={"Cast"} items={characters_cast}/>
               <ShowSimilarItems type_name={"Recommendations"} items={recommendation} media_type={"tv"}/>
