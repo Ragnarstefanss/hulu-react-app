@@ -4,6 +4,9 @@ import Header from "../../../components/Header"
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
 import Cast from "../../../components/Cast";
 import SimilarItems from "../../../components/SimilarItems";
+import ShowSimilarItems from "../../../components/helper/ShowSimilarItems";
+import ShowCastMembers from "../../../components/helper/ShowCastMembers";
+import ShowTvSeriesDetails from "../../../components/TV/ShowTvSeriesDetails";
 const Logo = require('../../../assets/no_image.jpg');
 
 export default function Movie({ movie, characters, recommendation, similar }) {
@@ -29,7 +32,7 @@ export default function Movie({ movie, characters, recommendation, similar }) {
               />
             {/* </div> */}
             <div className="sm:ml-4 sm:mr-4">
-              <h2 className="text-6xl font-semibold text-white leading-tight mb-2">{movie.title}</h2>
+              {/* <h2 className="text-6xl font-semibold text-white leading-tight mb-2">{movie.title}</h2>
               <div className="flex items-center text-gray-400 text-sm mb-4">
                 <svg className="fill-current text-orange-500 w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                 <span>{movie.vote_average}</span>
@@ -39,31 +42,13 @@ export default function Movie({ movie, characters, recommendation, similar }) {
                 {movie.genres && movie.genres.map(genre => (
                   <span key={genre.id} className="mr-4">{genre.name}</span>
                 ))}
-              </div>
-              <div className="flex flex-wrap space-y-4">
-                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Cast</h2>
-              </div>
-              <div className="flex flex-wrap">
-                {characters_cast && characters_cast.slice(0, 12).map((member) => (
-                  <Cast key={member.id} member={member}/>
-                ))}
-            </div>
-            <div className="flex flex-wrap space-y-4">
-                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Recommendation</h2>
-            </div>
-            <div className="flex flex-wrap">
-                {recommendation && recommendation["results"].slice(0, 6).map((recommendation) => (
-                  <SimilarItems key={recommendation.id} similar={recommendation} media_type={"movie"}/>
-                ))}
-            </div>
-            <div className="flex flex-wrap space-y-4">
-                <h2 className="text-2xl font-semibold text-white leading-tight mb-2">Similar</h2>
-            </div>
-            <div className="flex flex-wrap">
-                {similar && similar["results"].slice(0, 6).map((similar) => (
-                  <SimilarItems key={similar.id} similar={similar} media_type={"movie"}/>
-                ))}
-            </div>
+              </div> */}
+            <ShowTvSeriesDetails tv={movie} />
+            <ShowCastMembers type_name={"Cast"} items={characters_cast}/>
+            <ShowSimilarItems type_name={"Recommendations"} items={recommendation} />
+            <ShowSimilarItems type_name={"Similar"} items={similar}/>
+
+
             </div>
           </div>
         </div>
