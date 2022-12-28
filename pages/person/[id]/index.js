@@ -4,11 +4,17 @@ import Header from "../../../components/Header"
 import Results from "../../../components/Results";
 import PersonThumbnailMovies from "../../../components/PersonThumbnailMovies";
 import FlipMove from "react-flip-move";
+import PropTypes from 'prop-types';
+import {useState} from 'react';
 
 export default function Person({ person, popular }) {
   //console.log("hello", characters)
+  const sort_popularity = popular["cast"].sort((a, b) => b.popularity - a.popularity)
+
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
-  console.log(popular)
+  const [expanded, setExpanded] = useState(false)
+  const dataForDisplay = expanded ? sort_popularity : sort_popularity.slice(0, 12)
+  
   return (    
    <>
       <Header />
@@ -28,13 +34,21 @@ export default function Person({ person, popular }) {
               <p className="text-gray-300 text-base leading-relaxed mb-4">{person.biography}</p>
              {/* here */}
 
-              <FlipMove className="px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-5">
-                {popular && popular["cast"].sort((a, b) => b.popularity - a.popularity).map((member) => (
+            <div className="flex flex-wrap space-y-4">
+                <h1 className="text-2xl font-semibold text-white leading-tight mb-2">Popular Movies</h1>
+            </div>
+              <FlipMove className="px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:grid-cols-5">
+                {dataForDisplay.map((member) => (
                     
                     <PersonThumbnailMovies key={member.id} result={member}/>
                 ))}
             </FlipMove>
-             
+             <div className="flex justify-center items-center">
+                <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => setExpanded(!expanded)}>
+                    {expanded ? 'Show Less' : 'Show More'} 
+                  </button>
+              </div>
+                    
             </div>
             </div>
           </div>
@@ -42,6 +56,8 @@ export default function Person({ person, popular }) {
     </>
   );
 };
+
+
 
 export async function getServerSideProps(context) {
   //query: { id: '436270' },
@@ -62,3 +78,4 @@ const moviecredits_request = await fetch(
     },
   };
 }
+
