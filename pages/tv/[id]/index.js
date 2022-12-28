@@ -11,13 +11,28 @@ import ShowCastMembers from "../../../components/helper/ShowCastMembers";
 const Logo = require('../../../assets/no_image.jpg');
 import ShowSeasonsForTvShow from "../../../components/TV/ShowSeasonsForTvShow";
 
-export default function Tv({ tv, season, characters, recommendation, similar  }) {
+import Link from 'next/link';
+
+const ProviderIcon = ({ provider, url }) => {
+  const BASE_URL = "https://image.tmdb.org/t/p/original/";
+  return (
+    <Link href={url}>
+      <a className="inline-block w-6 h-6 rounded-full overflow-hidden">
+        <img src={`${BASE_URL}$/images/providers/${provider}.png`} alt={provider} />
+      </a>
+    </Link>
+  );
+}
+
+export default function Tv({ tv, season, characters, watchproviders, recommendation, similar  }) {
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const router = useRouter();
 
   const characters_cast = characters["cast"]
   const number_of_seasons = tv["seasons"]
   const episodes = season["episodes"]
+
+  const providers = watchproviders["US"]
   // console.log(episodes)
 
   return (
@@ -33,7 +48,11 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
             />
             <div className="sm:ml-4 sm:mr-4">
               <ShowTvSeriesDetails tv={tv} />
-
+              {providers && providers.flatrate.map((provider) => 
+                <h1>{provider.provider_name}</h1>
+                // <ProviderIcon provider={provider.provider_name} url={provider.logo_path} />
+              )}
+              
 
               {/* <div className="flex flex-wrap space-y-4">
                 <h1 className="text-2xl font-semibold text-white leading-tight mb-2">{seasons.map((member) => (member.name))}</h1>
@@ -101,9 +120,13 @@ export async function getServerSideProps(context) {
     `https://api.themoviedb.org/3/${resolvedUrl}/credits?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
 
-  const seasonrequest = await fetch(
-    `https://api.themoviedb.org/3/${resolvedUrl}/season/${season}?api_key=${process.env.API_KEY}&language=en-US`
+  const watchprovidersrequest = await fetch(
+    `https://api.themoviedb.org/3/${resolvedUrl}/watch/providers?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
+
+  // const seasonrequest = await fetch(
+  //   `https://api.themoviedb.org/3/${resolvedUrl}/season/${season}?api_key=${process.env.API_KEY}&language=en-US`
+  // ).then((res) => res.json());
 
   const newseasonrequest = await fetch(
     `https://api.themoviedb.org/3/${resolvedUrl}/season/${newseason?newseason:1}?api_key=${process.env.API_KEY}`
@@ -114,6 +137,7 @@ export async function getServerSideProps(context) {
       tv: tvrequest,
       season: newseasonrequest,
       characters: charactersrequest,
+      watchproviders: watchprovidersrequest.results,
       recommendation: recommendationmovierequest,
       similar: similarmovierequest
     },
