@@ -11,7 +11,7 @@ const Logo = require('../../../assets/no_image.jpg');
 import ShowSeasonsForTvShow from "../../../components/TV/ShowSeasonsForTvShow";
 
 import Link from 'next/link';
-import ShowContentsDetails from "../../../components/TV/ShowContentsDetails";
+import ShowContentsDetails from "../../../components/helper/ShowContentsDetails";
 
 export default function Tv({ tv, season, characters, recommendation, similar  }) {
   const BASE_URL = "https://image.tmdb.org/t/p/original/";

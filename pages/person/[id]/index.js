@@ -55,7 +55,7 @@ export default function Person({ person, popular, tv_shows }) {
             </div>
               <FlipMove className="px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:grid-cols-5">
                 {tv_dataForDisplay.map((member) => ( 
-                    <PersonThumbnailMovies key={member.id} result={member}/>
+                    <PersonThumbnailMovies key={member.id} result={member} media_type={'tv'}/>
                 ))}
             </FlipMove>
              <div className="flex justify-center items-center">

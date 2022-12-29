@@ -5,7 +5,7 @@ import ShowSeason from "../../../../../components/TV/ShowSeason";
 import FlipMove from "react-flip-move";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import ShowContentsDetails from "../../../../../components/TV/ShowContentsDetails";
+import ShowContentsDetails from "../../../../../components/helper/ShowContentsDetails";
 import ShowSimilarItems from "../../../../../components/helper/ShowSimilarItems";
 import ShowCastMembers from "../../../../../components/helper/ShowCastMembers";
 const Logo = require('../../../../../assets/no_image.jpg');

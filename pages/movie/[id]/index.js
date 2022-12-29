@@ -3,7 +3,7 @@ import Head from "next/head";
 import Header from "../../../components/Header"
 import ShowSimilarItems from "../../../components/helper/ShowSimilarItems";
 import ShowCastMembers from "../../../components/helper/ShowCastMembers";
-import ShowContentsDetails from "../../../components/TV/ShowContentsDetails";
+import ShowContentsDetails from "../../../components/helper/ShowContentsDetails";
 const Logo = require('../../../assets/no_image.jpg');
 
 export default function Movie({ movie, characters, recommendation, similar }) {

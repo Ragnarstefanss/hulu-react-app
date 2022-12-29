@@ -5,16 +5,16 @@ import { useRouter } from 'next/router'
 import Link from "next/link";
 
 
-const PersonThumbnailMovies = forwardRef(({ result }, ref) => {
+const PersonThumbnailMovies = forwardRef(({ result, media_type }, ref) => {
     const BASE_URL = "https://image.tmdb.org/t/p/original/";
     const router = useRouter();
-
+    const item = result
     return (
-        <Link href={`/movie/${result.id}`}>
-            <div ref={ref} className="p-2 group cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50" onClick={() => {
+        // <Link href={`/movie/${result.id}`}>
+        <div ref={ref} className="p-2 group cursor-pointer transition duration-200 ease-in transform sm:hover:scale-105 hover:z-50" onClick={() => {
             router.push({
-            pathname: '/movie/[id]',
-            query: { id: result.id },
+                pathname: media_type ? '/'+media_type+'/[id]' : '/movie/[id]',
+                query: { id: item.id },
             })
         }}>
                 <Image
@@ -40,7 +40,7 @@ const PersonThumbnailMovies = forwardRef(({ result }, ref) => {
                     </p>
                 </div>
             </div>
-        </Link>
+        // </Link>
     );
 })
 
