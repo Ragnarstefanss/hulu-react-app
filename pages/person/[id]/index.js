@@ -17,6 +17,7 @@ import {useState} from 'react';
     return unique;
   }
 
+
 export default function Person({ person, popular, tv_shows }) {
   //console.log("hello", characters)
   const sort_movie_popularity = getUnique(popular["cast"].sort((a, b) => b.popularity - a.popularity),'id')
@@ -24,12 +25,15 @@ export default function Person({ person, popular, tv_shows }) {
 
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   
+  const show_x_items = 12
   const [movie_expanded, movie_setExpanded] = useState(false)
-  const movie_dataForDisplay = movie_expanded ? sort_movie_popularity : sort_movie_popularity.slice(0, 12)
+  const movie_dataForDisplay = movie_expanded ? sort_movie_popularity : sort_movie_popularity.slice(0, show_x_items)
   
   const [tv_expanded, tv_setExpanded] = useState(false)
-  const tv_dataForDisplay = tv_expanded ? sort_tv_popularity : sort_tv_popularity.slice(0, 12)
+  const tv_dataForDisplay = tv_expanded ? sort_tv_popularity : sort_tv_popularity.slice(0, show_x_items)
   
+  const movie_numRows = sort_movie_popularity.length
+  const tv_numRows = sort_tv_popularity.length
   return (    
    <>
       <Header />
@@ -58,26 +62,35 @@ export default function Person({ person, popular, tv_shows }) {
                     <PersonThumbnailMovies key={member.id} result={member} media_type={'tv'}/>
                 ))}
             </FlipMove>
-             <div className="flex justify-center items-center">
-                <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => tv_setExpanded(!tv_expanded)}>
-                    {tv_expanded ? 'Show Less' : 'Show More'} 
-                  </button>
-              </div>
+            { movie_numRows > show_x_items ? (
+              <div className="flex justify-center items-center">
+                  <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => tv_setExpanded(!tv_expanded)}>
+                      {tv_expanded ? 'Show Less' : 'Show More'} 
+                    </button>
+                </div>):
+              (<div></div>)
+            }
+
 
             {/* Popular Movies */}
             <div className="flex flex-wrap space-y-4">
                 <h1 className="text-2xl font-semibold text-white leading-tight mb-2">Popular Movies</h1>
             </div>
-              <FlipMove className="px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:grid-cols-5">
+            <FlipMove className="px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-4 3xl:grid-cols-5">
                 {movie_dataForDisplay.map((member) => ( 
                     <PersonThumbnailMovies key={member.id} result={member}/>
                 ))}
             </FlipMove>
-             <div className="flex justify-center items-center">
+            { movie_numRows > show_x_items ? (
+              <div className="flex justify-center items-center">
                 <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => movie_setExpanded(!movie_expanded)}>
                     {movie_expanded ? 'Show Less' : 'Show More'} 
                   </button>
-              </div>
+              </div>):
+              (<div></div>)
+            }
+
+
                     
             </div>
             </div>

@@ -11,11 +11,12 @@ import ShowCastMembers from "../../../../../components/helper/ShowCastMembers";
 const Logo = require('../../../../../assets/no_image.jpg');
 import ShowSeasonsForTvShow from "../../../../../components/TV/ShowSeasonsForTvShow";
 
-export default function Tv({ tv, season, characters, recommendation, similar  }) {
+export default function Tv({ tv, season, }) {
+  // characters, recommendation, similar  
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const router = useRouter();
 
-  const characters_cast = characters["cast"]
+  // const characters_cast = characters["cast"]
   const number_of_seasons = tv["seasons"]
   const episodes = season["episodes"]
   // console.log(episodes)
@@ -41,9 +42,9 @@ export default function Tv({ tv, season, characters, recommendation, similar  })
               </FlipMove> */}
 
 
-              <ShowCastMembers type_name={"Cast"} items={characters_cast}/>
-              <ShowSimilarItems type_name={"Recommendations"} items={recommendation}/>
-              <ShowSimilarItems type_name={"Similar"} items={similar}/>
+              {/* <ShowCastMembers type_name={"Cast"} items={characters_cast}/> */}
+              {/* <ShowSimilarItems type_name={"Recommendations"} items={recommendation}/> */}
+              {/* <ShowSimilarItems type_name={"Similar"} items={similar}/> */}
 
             </div>
           </div>
@@ -65,17 +66,17 @@ export async function getServerSideProps(context) {
     `https://api.themoviedb.org/3/${resolvedUrl}?api_key=${process.env.API_KEY}&language=en-US`
   ).then((res) => res.json());
 
-  const newseasonrequest = await fetch(
+  const seasonrequest = await fetch(
     `https://api.themoviedb.org/3/${resolvedUrl}/season/${newseason?newseason:1}?api_key=${process.env.API_KEY}`
   ).then((res) => res.json());
   // console.log(newseasonrequest)
   return {
     props: {
       tv: tvrequest,
-      season: newseasonrequest,
-      characters: charactersrequest,
-      recommendation: recommendationmovierequest,
-      similar: similarmovierequest
+      season: seasonrequest,
+      // characters: charactersrequest,
+      // recommendation: recommendationmovierequest,
+      // similar: similarmovierequest
     },
   };
 }
